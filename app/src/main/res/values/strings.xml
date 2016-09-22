@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TipCalc</string>
+    <string name="main.hint.bill">Total</string>
+    <string name="main.button.submit">Calculate</string>
+    <string name="main.hint.percentage">Tip %</string>
+    <string name="main.button.increase">+</string>
+    <string name="main.button.decrease">-</string>
+    <string name="main.button.clear">Clear recent</string>
 </resources>
