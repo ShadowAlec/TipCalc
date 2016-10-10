@@ -19,6 +19,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.luisortiz.tipcalc.fragments.TipHistoryListFragment;
+import com.luisortiz.tipcalc.fragments.TipHistoryListFragmentListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.txtTip)
     TextView txtTip;
 
+    private TipHistoryListFragmentListener fragmentListener;
     private final static int TIP_STEP_CHANGE = 1;
     private final static int DEFAULT_TIP_CHANGE = 10;
     /**
@@ -58,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         inputPercentage.setText(String.valueOf(DEFAULT_TIP_CHANGE));
+
+        TipHistoryListFragment fragment = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
+
+        fragment.setRetainInstance(true);
+        fragmentListener = (TipHistoryListFragmentListener) fragment;
+
     }
 
     @Override
@@ -86,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             double tip = total*tipPercentage/100d;
             String strTip = String.format(getString(R.string.global_message_bill),tip);
             txtTip.setText(strTip);
+            fragmentListener.action(strTip);
             txtTip.setVisibility(View.VISIBLE);
-
         }
     }
 
@@ -96,14 +105,14 @@ public class MainActivity extends AppCompatActivity {
     public void handleClickIncrease()
     {
         // LLamar a handleTipChange y sumar 1
-        handleTipChange(1);
+        handleTipChange(TIP_STEP_CHANGE);
         return;
     }
     @OnClick(R.id.btnDecrease)
     public void handleClickDecrease()
     {
         // LLamar a handleTipChange y restar 1
-        handleTipChange(-1);
+        handleTipChange(-TIP_STEP_CHANGE);
         return;
     }
 
@@ -147,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         try
         {
-            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),    InputMethodManager.HIDE_IMPLICIT_ONLY);
+            inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),    InputMethodManager.HIDE_NOT_ALWAYS);
         } catch(NullPointerException npe) {
             Log.e(getLocalClassName(),Log.getStackTraceString(npe));
         }
@@ -156,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void about() {
-        Log.v("ABOUT", "Hola, este es el boton de about");
+        //Log.v("ABOUT", "Hola, este es el boton de about");
 
         TipCalcApp app = (TipCalcApp) getApplication();
         String strUrl = app.getAboutUrl();

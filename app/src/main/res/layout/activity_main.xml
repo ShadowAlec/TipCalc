@@ -16,6 +16,13 @@
         android:id="@+id/tipContent"
         layout="@layout/content_tip" />
 
-
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentList"
+        android:layout_below="@id/tipContent"
+        android:name="com.luisortiz.tipcalc.fragments.TipHistoryListFragment"
+        tools:layout="@layout/fragment_tip_history_list"
+        />
 
 </RelativeLayout>
