@@ -7,4 +7,6 @@
     <string name="main.button.decrease">-</string>
     <string name="main.button.clear">Clear recent</string>
     <string name="main.menu.action.about">About</string>
+    <string name="global.message.bill">Tip %,.1f</string>
+    <string name="tipdetail.message.bill">Total %,.1f</string>
 </resources>

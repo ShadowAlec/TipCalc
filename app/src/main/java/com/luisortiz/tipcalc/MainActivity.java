@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        inputPercentage.setText(String.valueOf(DEFAULT_TIP_CHANGE));
     }
 
     @Override
@@ -77,6 +79,67 @@ public class MainActivity extends AppCompatActivity {
     public void handleSubmit()
     {
         hideKeyboard();
+        String strInputTotal = inputBill.getText().toString().trim();
+        if(!strInputTotal.isEmpty()) {
+            double total = Double.parseDouble(strInputTotal);
+            int tipPercentage = getTipPercentage();
+            double tip = total*tipPercentage/100d;
+            String strTip = String.format(getString(R.string.global_message_bill),tip);
+            txtTip.setText(strTip);
+            txtTip.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+
+    @OnClick(R.id.btnIncrease)
+    public void handleClickIncrease()
+    {
+        // LLamar a handleTipChange y sumar 1
+        handleTipChange(1);
+        return;
+    }
+    @OnClick(R.id.btnDecrease)
+    public void handleClickDecrease()
+    {
+        // LLamar a handleTipChange y restar 1
+        handleTipChange(-1);
+        return;
+    }
+
+
+    public int getTipPercentage() {
+        // 1 Crear una variable tipPercentage en la que guardemos DEFAULT_TIP_CHANGE
+        int tipPercentage = DEFAULT_TIP_CHANGE;
+        // 2 Crear una variable String strInputTipPercentage que tome el valor del inputPercentage (No olvidar el trim)
+        String strInputTipPercentage = inputPercentage.getText().toString().trim();
+        // 3 Verificar que la cadena no venga vacía.
+        if (!strInputTipPercentage.isEmpty())
+        {
+            //      3.1 Si no viene vacía, Sobreescribir tipPercentage con el valor de strInputTipPercentage. (Convertir a entero)
+            tipPercentage = Integer.parseInt(strInputTipPercentage);
+        }
+        else {
+            //      3.2 Si es vacía: inputPercentage.setText(String.valueOf(Default_TIP_PERCENTAGE));
+            inputPercentage.setText(String.valueOf(DEFAULT_TIP_CHANGE));
+        }
+        // 4 Devolver el valor de TipPercentage.
+        return tipPercentage;
+
+    }
+
+    public void handleTipChange(int change)
+    {
+        // 1 Llamar a GetTipPercentage (guardar en una variable)
+        int newTip = getTipPercentage();
+        // 2 Aplicar el incremento, decremento, que viene en la variable change
+        newTip = newTip + change;
+        // 3 Si TipPercentage mayor a cero, colocar el valor en la input.
+        if(newTip>0)
+        {
+            inputPercentage.setText(String.valueOf(newTip));
+        }
+
     }
 
     public void hideKeyboard()
@@ -137,5 +200,7 @@ public class MainActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
     }
+
+
 }
 
