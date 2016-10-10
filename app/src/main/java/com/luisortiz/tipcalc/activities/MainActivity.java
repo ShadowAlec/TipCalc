@@ -1,4 +1,4 @@
-package com.luisortiz.tipcalc;
+package com.luisortiz.tipcalc.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +19,8 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.luisortiz.tipcalc.R;
+import com.luisortiz.tipcalc.TipCalcApp;
 import com.luisortiz.tipcalc.fragments.TipHistoryListFragment;
 import com.luisortiz.tipcalc.fragments.TipHistoryListFragmentListener;
 
