@@ -136,6 +136,13 @@ public class MainActivity extends AppCompatActivity {
         return;
     }
 
+    @OnClick(R.id.btnClear)
+    public void handleClickClear()
+    {
+        fragmentListener.clearList();
+        txtTip.setVisibility(View.INVISIBLE);
+
+    }
 
     public int getTipPercentage() {
         // 1 Crear una variable tipPercentage en la que guardemos DEFAULT_TIP_CHANGE

@@ -69,7 +69,7 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
     @Override
     public void clearList()
     {
-
+            adapter.clear();
     }
 
 }
