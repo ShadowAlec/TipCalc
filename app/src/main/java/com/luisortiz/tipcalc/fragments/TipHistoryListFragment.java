@@ -1,6 +1,8 @@
 package com.luisortiz.tipcalc.fragments;
 
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import com.luisortiz.tipcalc.activities.AdvancedTipActivity;
 import com.luisortiz.tipcalc.adapters.OnItemClickListener;
 import com.luisortiz.tipcalc.adapters.TipAdapter;
 import com.luisortiz.tipcalc.models.TipRecord;
@@ -26,10 +29,16 @@ import com.luisortiz.tipcalc.models.TipRecord;
  */
 public class TipHistoryListFragment extends Fragment implements TipHistoryListFragmentListener,OnItemClickListener {
 
+
+
+
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
 
     TipAdapter adapter;
+    public final static String BILL_MESSAGE = "me.tipcalc.billmessage";
+    public final static String TIP_MESSAGE = "me.tipcalc.tipmessage";
+    public final static String DATE_MESSAGE = "me.tipcalc.datemessage";
 
     public TipHistoryListFragment() {
         // Required empty public constructor
@@ -75,9 +84,17 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
     @Override
     public void OnItemClick(TipRecord tipRecord) {
 
-        // HW Implementar la lógica para implementar una actividad enviándole la información de la propina.
 
-        Log.v("Mensaje!!", tipRecord.getDateFormated());
+
+
+        // HW Implementar la lógica para implementar una actividad enviándole la información de la propina.
+        //Log.v("Mensaje!!", tipRecord.getDateFormated());
+        Intent intent = new Intent(getContext(),AdvancedTipActivity.class);
+        intent.putExtra(BILL_MESSAGE,String.valueOf(tipRecord.getBill()));
+        intent.putExtra(TIP_MESSAGE,String.valueOf(tipRecord.getTip()));
+        intent.putExtra(DATE_MESSAGE,tipRecord.getDateFormated());
+        startActivity(intent);
+
 
     }
 }

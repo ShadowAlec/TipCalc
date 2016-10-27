@@ -8,5 +8,8 @@
     <string name="main.button.clear">Limpiar recientes</string>
     <string name="main.menu.action.about">Acerca de</string>
     <string name="global.message.bill">Propina %,.1f</string>
-    <string name="tipdetail.message.bill">Total %,.1f</string>
+    <string name="tipdetail.message.bill">Total: </string>
+    <string name="tipdetail.message.tip">Propina: </string>
+    <string name="tipdetail.message.date">Fecha: </string>
+
 </resources>

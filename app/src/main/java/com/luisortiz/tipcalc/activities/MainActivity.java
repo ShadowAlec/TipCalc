@@ -31,6 +31,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Bind(R.id.inputBill)
     EditText inputBill;
     @Bind(R.id.btnSubmit)
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtTip;
 
     private TipHistoryListFragmentListener fragmentListener;
+
 
 
     private final static int TIP_STEP_CHANGE = 1;
@@ -229,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        super.onStop();
 
+        super.onStop();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
