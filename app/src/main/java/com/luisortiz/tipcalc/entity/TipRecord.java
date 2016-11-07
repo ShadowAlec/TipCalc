@@ -4,6 +4,7 @@ import com.luisortiz.tipcalc.db.TipsDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
 /**
@@ -11,7 +12,7 @@ import java.util.Date;
  */
 
 @Table(database = TipsDatabase.class)
-public class TipRecord {
+public class TipRecord extends BaseModel {
 
     @PrimaryKey(autoincrement = true)
     private int id;
