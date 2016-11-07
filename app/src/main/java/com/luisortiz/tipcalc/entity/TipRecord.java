@@ -1,16 +1,31 @@
-package com.luisortiz.tipcalc.models;
+package com.luisortiz.tipcalc.entity;
 
-import java.text.SimpleDateFormat;
+import com.luisortiz.tipcalc.db.TipsDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+
 import java.util.Date;
 /**
  * Created by luis on 16/10/16.
  */
 
+@Table(database = TipsDatabase.class)
 public class TipRecord {
 
+    @PrimaryKey(autoincrement = true)
+    private int id;
+
+    @Column
     private double bill;
+    @Column
     private int tipPercentage;
+    @Column
     private Date timestamp;
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public double getBill(){
         return bill;
@@ -37,15 +52,6 @@ public class TipRecord {
 
     public void setTimestamp(Date timestamp){
         this.timestamp = timestamp;
-    }
-
-    public  double getTip(){
-        return bill*(tipPercentage/100d);
-    }
-
-    public String getDateFormated(){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM dd, yyyy HH::mm");
-        return simpleDateFormat.format(timestamp);
     }
 
 }

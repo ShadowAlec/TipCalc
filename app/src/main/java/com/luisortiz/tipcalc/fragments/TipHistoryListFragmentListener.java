@@ -1,6 +1,6 @@
 package com.luisortiz.tipcalc.fragments;
 
-import com.luisortiz.tipcalc.models.TipRecord;
+import com.luisortiz.tipcalc.entity.TipRecord;
 
 /**
  * Created by luis on 10/10/16.

@@ -1,9 +1,6 @@
 package com.luisortiz.tipcalc.adapters;
 
 import  android.content.Context;
-import android.content.DialogInterface;
-import android.support.v4.widget.SearchViewCompat;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +9,8 @@ import android.widget.TextView;
 
 
 import com.luisortiz.tipcalc.R;
-import com.luisortiz.tipcalc.models.TipRecord;
+import com.luisortiz.tipcalc.entity.TipRecord;
+import com.luisortiz.tipcalc.utils.TipUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,7 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TipRecord element = dataset.get(position);
-        String strTip = String.format(context.getString(R.string.global_message_bill), element.getTip());
+        String strTip = String.format(context.getString(R.string.global_message_bill), TipUtils.getTip(element));
         holder.txtContent.setText(strTip);
         holder.setOnItemClickListener(element,onItemClickListener);
     }

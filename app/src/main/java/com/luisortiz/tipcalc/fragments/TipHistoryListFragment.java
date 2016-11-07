@@ -1,28 +1,25 @@
 package com.luisortiz.tipcalc.fragments;
 
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.ViewGroup;
 
 import com.luisortiz.tipcalc.R;
 
-import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 import com.luisortiz.tipcalc.activities.AdvancedTipActivity;
 import com.luisortiz.tipcalc.adapters.OnItemClickListener;
 import com.luisortiz.tipcalc.adapters.TipAdapter;
-import com.luisortiz.tipcalc.models.TipRecord;
+import com.luisortiz.tipcalc.entity.TipRecord;
+import com.luisortiz.tipcalc.utils.TipUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,8 +88,8 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
         //Log.v("Mensaje!!", tipRecord.getDateFormated());
         Intent intent = new Intent(getContext(),AdvancedTipActivity.class);
         intent.putExtra(BILL_MESSAGE,String.valueOf(tipRecord.getBill()));
-        intent.putExtra(TIP_MESSAGE,String.valueOf(tipRecord.getTip()));
-        intent.putExtra(DATE_MESSAGE,tipRecord.getDateFormated());
+        intent.putExtra(TIP_MESSAGE,String.valueOf(TipUtils.getTip(tipRecord)));
+        intent.putExtra(DATE_MESSAGE,TipUtils.getDateFormated(tipRecord));
         startActivity(intent);
 
 

@@ -22,9 +22,14 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.luisortiz.tipcalc.R;
 import com.luisortiz.tipcalc.TipCalcApp;
+import com.luisortiz.tipcalc.db.TipsDatabase;
 import com.luisortiz.tipcalc.fragments.TipHistoryListFragment;
 import com.luisortiz.tipcalc.fragments.TipHistoryListFragmentListener;
-import com.luisortiz.tipcalc.models.TipRecord;
+import com.luisortiz.tipcalc.entity.TipRecord;
+import com.luisortiz.tipcalc.utils.TipUtils;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -69,11 +74,21 @@ public class MainActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         inputPercentage.setText(String.valueOf(DEFAULT_TIP_CHANGE));
 
+        initDB();
+
         TipHistoryListFragment fragment = (TipHistoryListFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentList);
 
         fragment.setRetainInstance(true);
         fragmentListener = (TipHistoryListFragmentListener) fragment;
 
+    }
+
+    private void initDB()
+    {
+
+        FlowManager.init(new FlowConfig.Builder(this).build());
+
+        FlowManager.getDatabase(TipsDatabase.class).getWritableDatabase();
     }
 
     @Override
@@ -111,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             record.setTipPercentage(tipPercentage);
             record.setTimestamp(new Date());
 
-            String strTip = String.format(getString(R.string.global_message_bill),record.getTip());
+            String strTip = String.format(getString(R.string.global_message_bill), TipUtils.getTip(record));
 
             fragmentListener.addToList(record);
 
@@ -239,6 +254,16 @@ public class MainActivity extends AppCompatActivity {
         client.disconnect();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DBTearDown();
+    }
+
+    //Cierra la conexión con la base de datos.
+    private void DBTearDown(){
+        FlowManager.destroy();
+    }
 
 }
 
