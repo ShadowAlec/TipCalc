@@ -1,4 +1,4 @@
-package com.luisortiz.tipcalc.adapters;
+    package com.luisortiz.tipcalc.adapters;
 
 import  android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.luisortiz.tipcalc.R;
 import com.luisortiz.tipcalc.entity.TipRecord;
 import com.luisortiz.tipcalc.utils.TipUtils;
+import com.raizlabs.android.dbflow.sql.language.Delete;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,15 +64,26 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
         return dataset.size();
     }
 
+
+    public void init()
+    {
+        dataset = new Select().from(TipRecord.class).queryList();
+    }
+
     public void add(TipRecord record){
         //dataset.add(0, record);
         record.save();
+        dataset = new Select().from(TipRecord.class).queryList();
         notifyDataSetChanged();
     }
 
     public void clear() {
-        dataset.clear();
+
+        //dataset = new Select().from(TipRecord.class).queryList();
+        dataset = new Delete().from(TipRecord.class).queryList();
+        //dataset.clear();
         notifyDataSetChanged();
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{

@@ -38,7 +38,7 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
     public final static String DATE_MESSAGE = "me.tipcalc.datemessage";
 
     public TipHistoryListFragment() {
-        // Required empty public constructor
+        // Required empty public constructo r
     }
 
 
@@ -70,6 +70,11 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
     }
 
     @Override
+    public void initList() {
+        adapter.init();
+    }
+
+    @Override
     public void addToList(TipRecord record) {
        adapter.add(record);
 
@@ -83,8 +88,6 @@ public class TipHistoryListFragment extends Fragment implements TipHistoryListFr
 
     @Override
     public void OnItemClick(TipRecord tipRecord) {
-
-
 
 
         // HW Implementar la lógica para implementar una actividad enviándole la información de la propina.

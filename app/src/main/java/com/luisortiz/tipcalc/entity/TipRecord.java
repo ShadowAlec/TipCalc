@@ -37,7 +37,7 @@ public class TipRecord extends BaseModel {
         this.bill = bill;
     }
 
-    public double getTipPercentage()
+    public int getTipPercentage()
     {
         return tipPercentage;
     }
